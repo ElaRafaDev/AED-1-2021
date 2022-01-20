@@ -2373,15 +2373,37 @@ void menuVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVendas, 
     } while (opc != 0);
 }
 
+/*
+FILE *abreArquivo(char *nomeArquivo, char *modo, char *localERRO)
+{
+    FILE *arquivo;
+
+    if ((arquivo = fopen(nomeArquivo, modo)) == NULL)
+    {
+        printf("\nERRO AO ABRIR [%s]\nLOCAL_ERRO: [%s]\n\n", nomeArquivo, localERRO);
+        exit(1);
+    }
+    return arquivo;
+}
+*/
+
+arquivoCarros = abreArquivo(fileCarros, "w+b", local);
+
 void menuPrincipal(char *fileCarros, char *fileClientes, char *fileVendas)
 {
     int opc;
     char *local = "void menuPrincipal(char *fileCarros, char *fileClientes, char *fileVendas)";
     FILE *arquivoCarros, *arquivoClientes, *arquivoVendas;
 
-    arquivoCarros = abreArquivo(fileCarros, "w+b", local);
-    arquivoClientes = abreArquivo(fileClientes, "w+b", local);
-    arquivoVendas = abreArquivo(fileVendas, "w+b", local);
+    if ((arquivoCarros = fopen(fileCarros, "r+b")) == NULL)
+        arquivoCarros = abreArquivo(fileCarros, "w+b", local);
+
+    if ((arquivoClientes = fopen(fileClientes, "r+b")) == NULL)
+        arquivoClientes = abreArquivo(fileClientes, "w+b", local);
+
+    if ((arquivoVendas = fopen(fileVendas, "r+b")) == NULL)
+        arquivoVendas = abreArquivo(fileVendas, "w+b", local);
+
     do
     {
         system("cls");
