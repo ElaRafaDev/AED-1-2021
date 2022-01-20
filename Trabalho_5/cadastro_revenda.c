@@ -2373,22 +2373,6 @@ void menuVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVendas, 
     } while (opc != 0);
 }
 
-/*
-FILE *abreArquivo(char *nomeArquivo, char *modo, char *localERRO)
-{
-    FILE *arquivo;
-
-    if ((arquivo = fopen(nomeArquivo, modo)) == NULL)
-    {
-        printf("\nERRO AO ABRIR [%s]\nLOCAL_ERRO: [%s]\n\n", nomeArquivo, localERRO);
-        exit(1);
-    }
-    return arquivo;
-}
-*/
-
-arquivoCarros = abreArquivo(fileCarros, "w+b", local);
-
 void menuPrincipal(char *fileCarros, char *fileClientes, char *fileVendas)
 {
     int opc;
