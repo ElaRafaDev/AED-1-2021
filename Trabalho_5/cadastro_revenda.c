@@ -462,7 +462,7 @@ void geraCorCarro(char *corCarro)
 // Mostrar os dados do carro
 void mostraCarro(struct CARRO carro)
 {
-    int i;
+    long unsigned int i;
     printf("\n\tPLACA: %s", carro.placa);
     printf("\n\tMODELO: %s", carro.modelo);
     printf("\n\tFABRICANTE: %s", carro.fabricante);
@@ -482,7 +482,7 @@ void mostraCarro(struct CARRO carro)
 // Gerar os dados do carro
 void geraCarro(FILE *arquivoCarros, struct CARRO *carro)
 {
-    int i;
+    long unsigned int i;
     geraPlacaCarro(arquivoCarros, carro->placa);
     geraModeloCarro(carro->modelo);
     geraFabricanteCarro(carro->fabricante, carro->modelo);
@@ -505,7 +505,7 @@ void cadastrosCarro(FILE *arquivoCarros)
     {
         do
         {
-            system("cls");
+            system("clear");
             geraCarro(arquivoCarros, &carro);
             flush_in();
             printf("INFORMACOES DO CARRO:\n");
@@ -520,7 +520,7 @@ void cadastrosCarro(FILE *arquivoCarros)
             {
                 do
                 {
-                    system("cls");
+                    system("clear");
                     printf("INFORMACOES DO CARRO:\n");
                     mostraCarro(carro);
                     printf("\n\nATENCAO!! INFORME: (S - SIM) OU (N - NAO)\nDESEJA INCLUIR ESTE CARRO? ");
@@ -595,7 +595,8 @@ void ordenaFabricanteModeloCarros(struct CARRO *dadosCarro, int tamanho)
 // Separa os dados dos carros que correspondem à quantidade de opcionais informada pelo o usuário em outro arquivo
 void selecionaOpcionais(FILE *arquivoCarros, FILE *arquivoTemp, int quantidadeOpcionais)
 {
-    int i, contadorOpcionais = 0;
+    long unsigned int i;
+    int contadorOpcionais = 0;
     struct CARRO dadosCarro;
 
     fseek(arquivoCarros, 0, SEEK_SET);
@@ -637,10 +638,11 @@ void selecionaFaixaAnoFabricacao(FILE *arquivoCarros, FILE *arquivoTemp, int ano
 // void listarCarrosSelecaoOpcionais(FILE *arquivoCarros)
 void determinaQuantidadeOpcionais(int *quantidadeOpcionais)
 {
-    int escolha, i;
+    long unsigned int i;
+    int escolha;
     do
     {
-        system("cls");
+        system("clear");
         printf("OPCIONAIS:\n");
         for (i = 0; i < QUANTIDADE_ELEMENTOS(opcionais); i++)
             printf("\t- %s\n", opcionais[i]);
@@ -650,7 +652,7 @@ void determinaQuantidadeOpcionais(int *quantidadeOpcionais)
         if (escolha < 1 || escolha > 8)
         {
             printf("\nQUANTIDADE INVALIDA!\nMININMO: 1 | MAXIMO : 8\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
         }
     } while (escolha < 1 || escolha > 8);
 
@@ -664,7 +666,7 @@ void determinaFaixaAnoFabricacao(int *min, int *max)
     int anoMin = 0, anoMax = 0;
     do
     {
-        system("cls");
+        system("clear");
         printf("\nINFORMAR UMA FAIXA DE ANO DE FABRICACAO:\nANO MINIMO: 1980 | ANO MAXIMO: 2016\n");
         do
         {
@@ -687,7 +689,7 @@ void determinaFaixaAnoFabricacao(int *min, int *max)
         if (anoMin > anoMax)
         {
             printf("\nFAIXA DE ANO DE FABRICACAO INVALIDA!\nO ANO MAXIMO DEVE SER MAIOR QUE O ANO MINIMO!\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
         }
     } while (anoMin > anoMax);
 
@@ -757,7 +759,7 @@ void listarCarrosFabricanteModeloOredenados(FILE *arquivoCarros, FILE *arquivoVe
             ordenaFabricanteModeloCarros(dadosCarros, tamanhoArquivoDisponiveis);         // Ordenar os Fabricantes e modelos
             copiaArquivoCarro(arquivoOrdenaTemp, dadosCarros, tamanhoArquivoDisponiveis); // Copiar os dados do vetor de struct para um outro arquivo
 
-            system("cls");
+            system("clear");
             printf("\nOPCAO: LISTAR OS CARROS DISPONIVEIS PARA A VENDA ORDENADOS CESCENTEMENTE POR FABRICANTES E MODELO\n\n");
             listarCarros(arquivoOrdenaTemp);
         }
@@ -797,7 +799,7 @@ void listarCarrosSelecaoOpcionais(FILE *arquivoCarros, FILE *arquivoVendas)
 
             if (quantidadeDadosArquivoCarros(arquivoSelecaoTemp) > 0) // Verificar se existem carros disponíveis com a quantidade de opcionais fornecida
             {
-                system("cls");
+                system("clear");
                 printf("\nOPCAO: LISTAR OS CARROS DISPONIVEIS PARA A VENDA POR SELECAO DE UM OU MAIS OPICIONAIS\n\n");
                 printf("CARRO(S) DISPONIVEL(IS) PARA VENDA COM %d OPCIONAL(IS):\n\n", quantidadeOpcionais);
                 listarCarros(arquivoSelecaoTemp);
@@ -841,7 +843,7 @@ void listarCarrosSelecaoAnoFabricacao(FILE *arquivoCarros, FILE *arquivoVendas)
 
             if (quantidadeDadosArquivoCarros(arquivoSelecaoTemp) > 0) // Verificar se existem carros disponíveis na faixa de ano de fabricação determinada
             {
-                system("cls");
+                system("clear");
                 printf("\nOPCAO: LISTAR OS CARROS DISPONIVEIS PARA A VENDA POR SELECAO DA FAIXA DE ANO ADE FABRICACAO\n\n");
                 printf("FAIXA DE ANO DE FABRICACAO SELECIONADA: DE %d ATE %d\n\n", anoMin, anoMax);
                 listarCarros(arquivoSelecaoTemp);
@@ -903,10 +905,10 @@ void excluirCarro(FILE *arquivoCarros, FILE *arquivoVendas, char *fileCarros)
         {
             do
             {
-                system("cls");
+                system("clear");
                 printf("\nOPCAO: EXCLUIR UM CARRO DO CADASTRO\n\n");
                 printf("INFORME A PLACA DO CARRO QUE DESEJA EXCLUIR NO FORMATO (AAA-1234) OU (-1) PARA RETORNAR: ");
-                scanf("%9s", &placaCarro);
+                scanf("%9s", placaCarro);
 
                 if (placaCarro[0] == '-' && placaCarro[1] == '1')
                     RETORNA;
@@ -917,12 +919,12 @@ void excluirCarro(FILE *arquivoCarros, FILE *arquivoVendas, char *fileCarros)
                     if (verificadorCarro == 0 && verificadorVenda == 0)
                     {
                         printf("\nVERIFICAMOS QUE ESTE VEICULO JA FOI VENDIDO\nNAO SERA POSSIVEL EXCLUIR O CADASTRO!\n\n");
-                        system("pause");
+                        system("read -p \"Pressione enter\" saindo");
                     }
                     else if (verificadorCarro != 0 && verificadorVenda != 0)
                     {
                         printf("\nPLACA INVALIDA!\nNAO FOI ENCONTRADO NENHUM CADASTRO.\n\n");
-                        system("pause");
+                        system("read -p \"Pressione enter\" saindo");
                     }
                 }
             } while ((placaCarro[0] != '-' && placaCarro[1] != '1') && (verificadorCarro != 0 || verificadorVenda == 0));
@@ -1078,8 +1080,6 @@ void mostraCliente(struct CLIENTE cliente)
 // Gerar os dados do cliente
 void geraCliente(FILE *arquivoClientes, struct CLIENTE *cliente)
 {
-    struct TELEFONE telefone;
-    struct ENDERECO endereco;
     int i;
 
     cliente->cod_cli = geraCodigoCliente(arquivoClientes);
@@ -1106,7 +1106,7 @@ void cadastrosCliente(FILE *arquivoClientes)
     {
         do
         {
-            system("cls");
+            system("clear");
             geraCliente(arquivoClientes, &cliente);
             flush_in();
             printf("INFORMACOES DO CLIENTE:\n");
@@ -1120,7 +1120,7 @@ void cadastrosCliente(FILE *arquivoClientes)
             {
                 do
                 {
-                    system("cls");
+                    system("clear");
                     printf("INFORMACOES DO CLIENTE:\n");
                     mostraCliente(cliente);
                     printf("\n\nATENCAO!! INFORME: ('S' - SIM) OU ('N' - NAO)\nDESEJA INCLUIR ESTE CLIENTE ? ");
@@ -1211,7 +1211,7 @@ void determinaFaixaSalarial(float *min, float *max)
     float valorMinimo = 0.0, valorMaximo = 0.0;
     do
     {
-        system("cls");
+        system("clear");
         printf("\nINFORMAR UMA FAIXA SALARIAL MENSAL:\nMINIMO: R$ 900,00 | MAXIMO: R$ 90.900,00\n");
         do
         {
@@ -1236,7 +1236,7 @@ void determinaFaixaSalarial(float *min, float *max)
         if (valorMinimo > valorMaximo)
         {
             printf("\nFAIXA SALARIAL INVALIDA!\nO VALOR MAXIMO DEVE SER MAIOR QUE O VALOR MINIMO!\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
         }
     } while (valorMinimo > valorMaximo);
 
@@ -1281,7 +1281,7 @@ void listarClientesNomesOrdenados(FILE *arquivoClientes)
         ordenaNomesClientes(dadosClientes, tamanhoArquivoClientes);                    // Ordenar os nomes
         copiaArquivoCliente(arquivoOrdenaTemp, dadosClientes, tamanhoArquivoClientes); // Copiar os dados do vetor de struct para um outro arquivo
 
-        system("cls");
+        system("clear");
         printf("\nOPCAO: LISTAR OS CLIENTES NO CADASTRO ORDENADOS CRESCENTEMENTE PELO NOME\n\n");
         listarClientes(arquivoOrdenaTemp);
 
@@ -1320,7 +1320,7 @@ void listarClientesSelecaoSalarial(FILE *arquivoClientes)
             ordenaNomesClientes(dadosCliente, tamanhoArquivoClientes);                    // Ordenar os nomes
             copiaArquivoCliente(arquivoOrdenaTemp, dadosCliente, tamanhoArquivoClientes); // Copiar os dados do vetor de struct para um outro arquivo
 
-            system("cls");
+            system("clear");
             printf("\nOPCAO: LISTAR OS CLIENTES NO CADASTRO ORDENADOS CRESCENTEMENTE PELO NOME POR SELECAO DE FAIXA DE RENDA SALARIAL MENSAL\n\n");
             printf("FAIXA SALARIAL MENSAL SELECIONADA: DE R$ %.2f REAIS | ATE R$ %.2f REAIS\n\n", valorMin, valorMax);
             listarClientes(arquivoOrdenaTemp);
@@ -1370,7 +1370,7 @@ void excluirCliente(FILE *arquivoClientes, FILE *arquivoVendas, char *fileClient
     {
         do
         {
-            system("cls");
+            system("clear");
             printf("\nOPCAO: INSERIR UM CLIENTE NO CADASTRO\n\n");
             printf("INFORME O CODIGO DO CLIENTE QUE DESEJA EXCLUIR OU (-1) PARA RETORNAR: ");
             scanf("%d", &codigoCliente);
@@ -1385,12 +1385,12 @@ void excluirCliente(FILE *arquivoClientes, FILE *arquivoVendas, char *fileClient
                 if (verificadorCliente == 0 && verificadorVenda == 0)
                 {
                     printf("\nVERIFICAMOS UMA VENDA REGISTRADA NESTE CLIENTE\nNAO SERA POSSIVEL EXCLUIR O CADASTRO!\n\n");
-                    system("pause");
+                    system("read -p \"Pressione enter\" saindo");
                 }
                 else if (verificadorCliente != 0 && verificadorVenda != 0)
                 {
                     printf("\nCODIGO INVALIDO!\nNAO FOI ENCONTRADO NENHUM CADASTRO.\n\n");
-                    system("pause");
+                    system("read -p \"Pressione enter\" saindo");
                 }
             }
         } while (codigoCliente != -1 && (verificadorCliente != 0 || verificadorVenda == 0));
@@ -1574,10 +1574,10 @@ void inserirVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVenda
         {
             do
             {
-                system("cls");
+                system("clear");
                 printf("\nOPCAO: INSERIR UMA VENDA\n\n");
                 printf("INFORME A PLACA DO VEICULO NO FORMATO (AAA-1234) OU (-1) PARA RETORNAR: ");
-                scanf("%9s", &placaCarro);
+                scanf("%9s", placaCarro);
 
                 if (placaCarro[0] == '-' && placaCarro[1] == '1')
                     RETORNA;
@@ -1588,12 +1588,12 @@ void inserirVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVenda
                     if (verificadorCarro == 0 && verificadorVenda == 0)
                     {
                         printf("\nESTE VEICULO JA FOI VENDIDO!\n\n");
-                        system("pause");
+                        system("read -p \"Pressione enter\" saindo");
                     }
                     else if (verificadorCarro != 0 && verificadorVenda != 0)
                     {
                         printf("\nPLACA INVALIDA!\nNAO FOI ENCONTRADO NENHUM CADASTRO.\n\n");
-                        system("pause");
+                        system("read -p \"Pressione enter\" saindo");
                     }
                 }
             } while ((placaCarro[0] != '-' && placaCarro[1] != '1') && (verificadorCarro != 0 || verificadorVenda == 0));
@@ -1602,7 +1602,7 @@ void inserirVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVenda
             {
                 do
                 {
-                    system("cls");
+                    system("clear");
                     printf("\nINFORME O CODIGO DO CLIENTE OU (-1) PARA RETORNAR: ");
                     scanf("%d", &codigoCliente);
 
@@ -1614,7 +1614,7 @@ void inserirVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVenda
                         if (verificadorCliente != 0)
                         {
                             printf("\nCODIGO INVALIDO!\nNAO FOI ENCONTRADO NENHUM CADASTRO.\n\n");
-                            system("pause");
+                            system("read -p \"Pressione enter\" saindo");
                         }
                     }
                 } while (codigoCliente != -1 && verificadorCliente != 0);
@@ -1630,7 +1630,7 @@ void inserirVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVenda
 
                 do
                 {
-                    system("cls");
+                    system("clear");
 
                     printf("\nDADOS DO VEICULO:\n");
                     fseek(arquivoCarros, sizeof(carro) * posicaoCarro, SEEK_SET);
@@ -1650,7 +1650,7 @@ void inserirVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVenda
                     else if (precoVenda < carro.preco_compra)
                     {
                         printf("\nO VEICULO NAO PODE SER VENDIDO POR UM VALOR INFERIOR DO SEU PRECO DE COMPRA!\n\n");
-                        system("pause");
+                        system("read -p \"Pressione enter\" saindo");
                     }
                 } while (precoVenda != -1 && precoVenda < carro.preco_compra);
 
@@ -1678,7 +1678,7 @@ void inserirVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVenda
 // Mostrar os fabricantes cadastrados para o usuário
 void mostraFabricantes()
 {
-    int i;
+    long unsigned int i;
     printf("FABRICANTES CADASTRADOS:");
     for (i = 0; i < QUANTIDADE_ELEMENTOS(carrosFabricantes); i++)
         printf("\n- %s", carrosFabricantes[i]);
@@ -1687,7 +1687,8 @@ void mostraFabricantes()
 // Mostrar os modelos cadastrados para o usuário
 void mostraModelos()
 {
-    int i, ii = 1;
+    long unsigned int i;
+    int ii = 1;
     printf("MODELOS CADASTRADOS:\n\n");
     for (i = 0; i < QUANTIDADE_ELEMENTOS(carrosModelos); i++)
     {
@@ -1705,7 +1706,8 @@ void mostraModelos()
 // Verifica se o fabricante informado pelo o usuário existe
 int procuraFabricante(char *nomeFabricante, int *indiceFabricante)
 {
-    int i = 0, verificador;
+    long unsigned int i = 0;
+    int verificador;
     do
     {
         if ((verificador = strcmp(nomeFabricante, carrosFabricantes[i])) == 0)
@@ -1718,7 +1720,8 @@ int procuraFabricante(char *nomeFabricante, int *indiceFabricante)
 // Verifica se o modelo informado pelo o usuário existe
 int procuraModelo(char *nomeModelo, int *indiceModelo)
 {
-    int i = 0, verificador;
+    long unsigned int i = 0;
+    int verificador;
     do
     {
         if ((verificador = strcmp(nomeModelo, carrosModelos[i])) == 0)
@@ -1736,16 +1739,16 @@ void determinaFabricante(char *nomeFabricante)
     char escolha[20];
     do
     {
-        system("cls");
+        system("clear");
         printf("\nOPCAO: LISTAR OS CARROS VENDIDOS DE UM DETERMINADO FABRICANTE, ORDENADOS CRESCENTEMENTE PELO MODELO\n\n");
         mostraFabricantes();
         printf("\n\nINFORME O NOME DO FABRICANTE: ");
-        scanf("%s", &escolha);
+        scanf("%s", escolha);
 
         if ((verificador = procuraFabricante(escolha, &indiceFabricante)) != 0)
         {
             printf("\nFABRICANTE INVALIDO, TENTE NOVAMENTE . . .\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
         }
     } while (verificador != 0);
 
@@ -1760,16 +1763,16 @@ void determinaModelo(char *nomeModelo)
     char escolha[20];
     do
     {
-        system("cls");
+        system("clear");
         printf("\nOPCAO: LISTAR OS CARROS VENDIDOS DE UM DETERMINADO MODELO, ORDENADOS CRESCENTEMENTE PELO ANO DE FABRICACAO\n\n");
         mostraModelos();
         printf("\nINFORME O NOME DO MODELO: ");
-        scanf("%s", &escolha);
+        scanf("%s", escolha);
 
         if ((verificador = procuraModelo(escolha, &indiceModelo)) != 0)
         {
             printf("\nMODELO INVALIDO, TENTE NOVAMENTE . . .\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
         }
     } while (verificador != 0);
 
@@ -1887,7 +1890,6 @@ void separaVendasCorrespondente(FILE *arquivoCarros, FILE *arquivoVendas, FILE *
 void separaClientesCorrespondente(FILE *arquivoVendas, FILE *arquivoClientes, FILE *arquivoClientesTemp)
 {
     struct CLIENTE dadosClientesCorrespondente[TAM];
-    struct VENDA_CARRO dadosVendas[TAM];
 
     char *fileClientesVendas = "./clientes.vendas.dat";
     char *local = "void separaClientesCorrespondente(FILE *arquivoVendas, FILE *arquivoClientes, FILE *arquivoClientesTemp)";
@@ -1998,7 +2000,7 @@ void listarVendasModelosOrdenados(FILE *arquivoCarros, FILE *arquivoClientes, FI
         {
             separaVendasCorrespondente(arquivoCarrosTemp, arquivoVendas, arquivoVendasTemp);       // Separar as vendas que correspondem com os dados dos carros
             separaClientesCorrespondente(arquivoVendasTemp, arquivoClientes, arquivoClientesTemp); // Separar os clientes que correspondem com os dados das vendas
-            system("cls");
+            system("clear");
             printf("\n\nFABRICANTE SELECIONADO: %s\n\n", nomeFabricante);
             listarVendasPorFabricante(arquivoCarrosTemp, arquivoClientesTemp);
         }
@@ -2043,7 +2045,7 @@ void listarVendasAnoFabricacaoOrdenados(FILE *arquivoCarros, FILE *arquivoClient
         {
             separaVendasCorrespondente(arquivoCarrosTemp, arquivoVendas, arquivoVendasTemp);       // Separar as vendas que correspondem com os dados dos carros
             separaClientesCorrespondente(arquivoVendasTemp, arquivoClientes, arquivoClientesTemp); // Separar os clientes que correspondem com os dados das vendas
-            system("cls");
+            system("clear");
             printf("\n\nMODELO SELECIONADO: %s\n\n", nomeModelo);
             listarVendasPorModelo(arquivoCarrosTemp, arquivoClientesTemp);
         }
@@ -2089,7 +2091,6 @@ float determinaLucroTotal(FILE *arquivoCarros, FILE *arquivoVendas)
     float valoresCarros[TAM], totalValoresCarros = 0.0, totalValoresVendas = 0.0;
 
     struct CARRO dadosCarro;
-    struct VENDA_CARRO dadosVenda;
 
     char *fileCarrosVendidos = "./carros.vendidos.dat";
     char *local = "float determinaValorTotalVendas(FILE *arquivoCarros, FILE *arquivoVendas)";
@@ -2124,7 +2125,7 @@ void informaQuantidadePrecoVendas(FILE *arquivoVendas)
 
     if (quantidadeCarrosVendidos > 0)
     {
-        system("cls");
+        system("clear");
         printf("\nOPCAO: INFORMAR A QUANTIDADE DE CARROS VENDIDOS COM O VALOR TOTALIZADO DOS PRECOS VENDIDOS\n\n");
         printf("\nQUANTIDADE DE CARROS VENDIDOS: %d", quantidadeCarrosVendidos);
         printf("\nVALOR TOTAL DAS VENDAS: R$ %.2f REAIS", determinaValorTotalVendas(arquivoVendas));
@@ -2138,7 +2139,7 @@ void informaLucroTotalVendas(FILE *arquivoCarros, FILE *arquivoVendas)
 {
     if (quantidadeDadosArquivoVendas(arquivoVendas) > 0) // Verificar se existem vendas cadastradas
     {
-        system("cls");
+        system("clear");
         printf("\nOPCAO: INFORMAR O LUCRO TOTAL DAS VENDAS\n\n");
         printf("\nLUCRO TOTAL DAS VENDAS: R$ %.2f", determinaLucroTotal(arquivoCarros, arquivoVendas));
     }
@@ -2180,10 +2181,10 @@ void excluirVenda(FILE *arquivoCarros, FILE *arquivoVendas, char *fileVendas)
     {
         do
         {
-            system("cls");
+            system("clear");
             printf("\nOPCAO: EXCLUIR UMA VENDA\n\n");
             printf("INFORME A PLACA DO CARRO REGISTRADO NA VENDA NO FORMATO (AAA-1234) OU (-1) PARA RETORNAR: ");
-            scanf("%9s", &placaCarro);
+            scanf("%9s", placaCarro);
 
             if (placaCarro[0] == '-' && placaCarro[1] == '1')
                 RETORNA;
@@ -2194,7 +2195,7 @@ void excluirVenda(FILE *arquivoCarros, FILE *arquivoVendas, char *fileVendas)
                 if (!(verificadorCarro == 0 && verificadorVenda == 0))
                 {
                     printf("\nPLACA INVALIDA!\nNAO FOI ENCONTRADO NENHUM CADASTRO.\n\n");
-                    system("pause");
+                    system("read -p \"Pressione enter\" saindo");
                 }
             }
         } while ((placaCarro[0] != '-' && placaCarro[1] != '1') && !(verificadorCarro == 0 && verificadorVenda == 0));
@@ -2217,7 +2218,7 @@ void menuCarro(FILE *arquivoCarros, FILE *arquivoVendas, char *fileCarros)
     int opc;
     do
     {
-        system("cls");
+        system("clear");
         printf("OPCOES:\n\n1 - INSERIR UM CARRO NO CADASTRO\n2 - EXCLUIR UM CARRO DO CADASTRO");
         printf("\n3 - LISTAR OS CARROS DISPONIVEIS PARA A VENDA ORDENADOS CESCENTEMENTE POR FABRICANTES E MODELO");
         printf("\n4 - LISTAR OS CARROS DISPONIVEIS PARA A VENDA POR SELECAO DE UM OU MAIS OPICIONAIS");
@@ -2230,37 +2231,37 @@ void menuCarro(FILE *arquivoCarros, FILE *arquivoVendas, char *fileCarros)
         case 0:
             RETORNA;
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 1:
             cadastrosCarro(arquivoCarros);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 2:
             excluirCarro(arquivoCarros, arquivoVendas, fileCarros);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 3:
             listarCarrosFabricanteModeloOredenados(arquivoCarros, arquivoVendas);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 4:
             listarCarrosSelecaoOpcionais(arquivoCarros, arquivoVendas);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 5:
             listarCarrosSelecaoAnoFabricacao(arquivoCarros, arquivoVendas);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
 
         default:
             ERRO_OPCAO;
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         }
     } while (opc != 0);
@@ -2271,7 +2272,7 @@ void menuCliente(FILE *arquivoClientes, FILE *arquivoVendas, char *fileClientes)
     int opc;
     do
     {
-        system("cls");
+        system("clear");
         printf("OPCOES:\n\n1 - INSERIR UM CLIENTE NO CADASTRO\n2 - EXCLUIR UM CLIENTE DO CADASTRO");
         printf("\n3 - LISTAR OS CLIENTES NO CADASTRO ORDENADOS CRESCENTEMENTE PELO NOME");
         printf("\n4 - LISTAR OS CLIENTES NO CADASTRO ORDENADOS CRESCENTEMENTE PELO NOME POR SELECAO DE FAIXA DE RENDA SALARIAL MENSAL");
@@ -2283,32 +2284,32 @@ void menuCliente(FILE *arquivoClientes, FILE *arquivoVendas, char *fileClientes)
         case 0:
             RETORNA;
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 1:
             cadastrosCliente(arquivoClientes);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 2:
             excluirCliente(arquivoClientes, arquivoVendas, fileClientes);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 3:
             listarClientesNomesOrdenados(arquivoClientes);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 4:
             listarClientesSelecaoSalarial(arquivoClientes);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
 
         default:
             ERRO_OPCAO;
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         }
     } while (opc != 0);
@@ -2319,7 +2320,7 @@ void menuVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVendas, 
     int opc;
     do
     {
-        system("cls");
+        system("clear");
         printf("OPCOES:\n\n1 - INSERIR UMA VENDA\n2 - EXCLUIR UMA VENDA");
         printf("\n3 - LISTAR OS CARROS VENDIDOS DE UM DETERMINADO FABRICANTE, ORDENADOS CRESCENTEMENTE PELO MODELO");
         printf("\n4 - LISTAR OS CARROS VENDIDOS DE UM DETERMINADO MODELO, ORDENADOS CRESCENTEMENTE PELO ANO DE FABRICACAO");
@@ -2332,42 +2333,42 @@ void menuVenda(FILE *arquivoCarros, FILE *arquivoClientes, FILE *arquivoVendas, 
         case 0:
             RETORNA;
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 1:
             inserirVenda(arquivoCarros, arquivoClientes, arquivoVendas);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 2:
             excluirVenda(arquivoCarros, arquivoVendas, fileVendas);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 3:
             listarVendasModelosOrdenados(arquivoCarros, arquivoClientes, arquivoVendas);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 4:
             listarVendasAnoFabricacaoOrdenados(arquivoCarros, arquivoClientes, arquivoVendas);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 5:
             informaQuantidadePrecoVendas(arquivoVendas);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         case 6:
             informaLucroTotalVendas(arquivoCarros, arquivoVendas);
             printf("\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
 
         default:
             ERRO_OPCAO;
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         }
     } while (opc != 0);
@@ -2390,22 +2391,22 @@ void menuPrincipal(char *fileCarros, char *fileClientes, char *fileVendas)
 
     do
     {
-        system("cls");
+        system("clear");
         printf("OPCOES:\n\n1 - CARRO\n2 - CLIENTE\n3 - VENDA\n4 - SAIR DO PROGRAMA\n\nINFORME SUA OPCAO: ");
         scanf("%d", &opc);
 
         switch (opc)
         {
         case 1:
-            system("cls");
+            system("clear");
             menuCarro(arquivoCarros, arquivoVendas, fileCarros);
             break;
         case 2:
-            system("cls");
+            system("clear");
             menuCliente(arquivoClientes, arquivoVendas, fileClientes);
             break;
         case 3:
-            system("cls");
+            system("clear");
             menuVenda(arquivoCarros, arquivoClientes, arquivoVendas, fileVendas);
             break;
         case 4:
@@ -2413,12 +2414,12 @@ void menuPrincipal(char *fileCarros, char *fileClientes, char *fileVendas)
             fechaArquivo(arquivoClientes, fileClientes, local);
             fechaArquivo(arquivoVendas, fileVendas, local);
             printf("\nOPERACAO FINALIZADA COM SUCESSO!\n\n");
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
 
         default:
             ERRO_OPCAO;
-            system("pause");
+            system("read -p \"Pressione enter\" saindo");
             break;
         }
     } while (opc != 4);
