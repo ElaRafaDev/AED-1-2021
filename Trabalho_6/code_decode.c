@@ -16,7 +16,7 @@ char *fileCode = "readme.code.txt";
 char *fileDecifra = "readme.decifra.txt";
 char *fileNlines = "readme.nlines.txt";
 
-// Limpez do buffer
+// Limpeza do buffer
 void flush_in()
 {
     int ch;
